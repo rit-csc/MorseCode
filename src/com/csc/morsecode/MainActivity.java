@@ -1,8 +1,11 @@
 package com.csc.morsecode;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.telephony.SmsManager;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 
@@ -30,6 +33,8 @@ public class MainActivity extends Activity {
 		Settings.addOutput( new VibratorOutput() );
 		//Settings.addInput(new MessageReceiver());
 		
+		
+		
 		//run some unit tests
 		//Tests.main(null);
 	}
@@ -43,7 +48,7 @@ public class MainActivity extends Activity {
 	}
 	
 	public void dotOnClick(View view) {
-		//
+	
 	}
 	
 	public void dashOnClick(View view) {
