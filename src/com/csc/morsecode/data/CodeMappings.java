@@ -4,7 +4,6 @@ import java.text.StringCharacterIterator;
 import java.util.HashMap;
 import java.util.Iterator;
 
-
 import android.util.Log;
 
 
@@ -58,7 +57,7 @@ public class CodeMappings {
 		
 		@Override
 		public boolean hasNext() {
-			return reader.getIndex() != reader.getEndIndex();
+			return reader.getIndex() < reader.getEndIndex() - 1;
 		}
 		
 		@Override
@@ -68,13 +67,14 @@ public class CodeMappings {
 			
 			//TODO this loop only matches the first Char.  Change it to keep looping through until it doesn't match, then backup and return the last matching key
 			while(hasNext()) {
+				key += reader.current();
+				reader.next();
+				
 				if(mappings.containsKey(key)) {
 					return mappings.get(key);
 				}
-				
-				key += reader.next();
 			}
-			Log.e("code-mapping", "Left over characters without a code mapping: " + key);
+			Log.w("code-mapping", "Left over characters without a code mapping: " + key);
 			
 			return code;
 		}
