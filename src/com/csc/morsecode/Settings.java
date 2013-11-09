@@ -36,7 +36,7 @@ public class Settings {
 	}
 	
 	public static double getTimeScale() {
-		return 1.0;
+		return 5.0;
 	}
 	//--------------------------------------------------------------------------
 	
