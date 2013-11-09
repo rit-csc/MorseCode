@@ -1,11 +1,11 @@
-package com.csc.morsecode;
+package com.csc.morsecode.tests;
 
 import java.text.StringCharacterIterator;
 import java.util.Arrays;
 import java.util.Iterator;
 
 import com.csc.morsecode.data.Code;
-import com.csc.morsecode.data.CodeMappings;
+import com.csc.morsecode.data.CodeMapping;
 
 
 public class Tests {
@@ -17,10 +17,10 @@ public class Tests {
 		System.out.println("Starting tests...");
 		
 		
-		// ----- Test CodeMappings ----- //
-		CodeMappings cm = new CodeMappings();
-		cm.put("a", new Code[] {Code.dot, Code.dash});
-		cm.put("b", new Code[] {Code.dot, Code.dot, Code.dash});
+		// ----- Test CodeMapping ----- //
+		CodeMapping cm = new CodeMapping();
+		cm.putBoth("a", new Code[] {Code.dot, Code.dash});
+		cm.putBoth("b", new Code[] {Code.dot, Code.dot, Code.dash});
 		
 		StringCharacterIterator sci = new StringCharacterIterator("abcdes");
 		Iterator<Code[]> iter = cm.iterator(sci);
