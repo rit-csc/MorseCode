@@ -40,7 +40,8 @@ public class CodeMapping {
 		return textToCode.get(key);
 	}
 	
-	private String get(Encoding codes) {
+	//TODO get the iterator working so we can turn this private again
+	public String get(Encoding codes) {
 		return codeToText.get(codes);
 	}
 	
