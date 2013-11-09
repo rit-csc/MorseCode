@@ -31,6 +31,9 @@ public class Settings {
 		return outputs;
 	}
 	
+	public static double getTimeScale() {
+		return 1.0;
+	}
 	//--------------------------------------------------------------------------
 	
 	public static boolean setCodeMapping(CodeMapping mapping) {

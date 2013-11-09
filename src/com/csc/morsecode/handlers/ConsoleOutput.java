@@ -1,5 +1,7 @@
 package com.csc.morsecode.handlers;
 
+import android.util.Log;
+
 import com.csc.morsecode.data.Code;
 
 
@@ -11,13 +13,13 @@ public class ConsoleOutput implements Output {
 	@Override
 	public void output(Code[] encoding) {
 		++eCount;
-		System.out.println("Encoding " + eCount + ": " + encoding);
+		Log.i("ConsoleOutput:", "Encoding " + eCount + ": " + encoding);
 	}
 	
 	@Override
 	public void output(String text) {
 		++tCount;
-		System.out.println("String " + tCount + ": " + text);
+		Log.i("ConsoleOutput:", "String " + tCount + ": " + text);
 	}
 	
 }

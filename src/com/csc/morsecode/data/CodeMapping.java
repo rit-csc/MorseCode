@@ -16,8 +16,8 @@ public class CodeMapping {
 	/**
 	 * Keys are lowercased by the helper methods.
 	 */
-	private final HashMap<String, Code[]> textToCode = new HashMap<String, Code[]>(37);
-	private final HashMap<Code[], String> codeToText = new HashMap<Code[], String>(37);
+	private final HashMap<String, Code[]> textToCode = new HashMap<String, Code[]>();
+	private final HashMap<Code[], String> codeToText = new HashMap<Code[], String>();
 	
 	public CodeMapping() {
 		loadDefaults();  //TODO load these from a file
@@ -27,11 +27,11 @@ public class CodeMapping {
 	
 	private boolean contains(String key) {
 		key = key.toLowerCase();
-		return textToCode.containsKey(key);
+		return textToCode.get(key) != null;
 	}
 	
 	private boolean contains(Code[] codes) {
-		return codeToText.containsKey(codes);
+		return codeToText.get(codes) != null;
 	}
 	
 	private Code[] get(String key) {
@@ -54,6 +54,9 @@ public class CodeMapping {
 	public void loadDefaults() {
 		//International Morse Code   //TODO what about the other versions?
 		//http://en.wikipedia.org/wiki/File:International_Morse_Code.svg  //TODO the space between letters is three units
+		if ( textToCode.size() > 0) {
+			return;
+		}
 		textToCode.clear();
 		codeToText.clear();
 		putBoth("a", new Code[] {Code.dot, Code.unit, Code.dash});
@@ -95,7 +98,6 @@ public class CodeMapping {
 		putBoth("8", new Code[] {Code.dash, Code.unit, Code.dash, Code.unit, Code.dash, Code.unit, Code.dot, Code.unit, Code.dot});
 		putBoth("9", new Code[] {Code.dash, Code.unit, Code.dash, Code.unit, Code.dash, Code.unit, Code.dash, Code.unit, Code.dot});
 		putBoth("0", new Code[] {Code.dash, Code.unit, Code.dash, Code.unit, Code.dash, Code.unit, Code.dash, Code.unit, Code.dash});
-		
 		//TODO what about whitespace and other characters?
 	}
 	
@@ -144,8 +146,8 @@ public class CodeMapping {
 				key += reader.current();
 				reader.next();
 				
-				if(textToCode.containsKey(key)) {
-					return textToCode.get(key);
+				if( contains(key) ) {
+					return get(key);
 				}
 			}
 			Log.w("code-mapping", "Left over characters without a code mapping: " + key);
