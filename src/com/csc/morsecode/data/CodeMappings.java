@@ -13,19 +13,81 @@ import android.util.Log;
  */
 public class CodeMappings {
 	
+	/**
+	 * Keys are lowercased by the helper methods.
+	 */
 	private final HashMap<String, Code[]> mappings = new HashMap<String, Code[]>(26);
 	
+	public CodeMappings() {
+		loadDefaults();  //TODO load these from a file
+	}
+	
+	//--------------------------------------------------------------------------
+	
+	
 	public boolean contains(String key) {
-		return mappings.containsKey(key);
+		return mappings.containsKey(key.toLowerCase());
 	}
 	
 	public Code[] get(String key) {
-		return mappings.get(key);
+		return mappings.get(key.toLowerCase());
 	}
 	
 	public void put(String key, Code[] codes) {
-		mappings.put(key, codes);
+		mappings.put(key.toLowerCase(), codes);
 	}
+	
+	
+	//--------------------------------------------------------------------------
+	
+	public void loadDefaults() {
+		//International Morse Code   //TODO what about the other versions?
+		//http://en.wikipedia.org/wiki/File:International_Morse_Code.svg  //TODO the space between letters is three units
+		mappings.clear();
+		mappings.put("a", new Code[] {Code.dot, Code.unit, Code.dash});
+		mappings.put("b", new Code[] {Code.dash, Code.unit, Code.dot, Code.unit, Code.dot, Code.unit, Code.dot});
+		mappings.put("c", new Code[] {Code.dash, Code.unit, Code.dot, Code.unit, Code.dash, Code.unit, Code.dot});
+		mappings.put("d", new Code[] {Code.dash, Code.unit, Code.dot, Code.unit, Code.dot});
+		mappings.put("e", new Code[] {Code.dot});
+		mappings.put("f", new Code[] {Code.dot, Code.unit, Code.dot, Code.unit, Code.dash, Code.unit, Code.dot});
+		mappings.put("g", new Code[] {Code.dash, Code.unit, Code.dash, Code.unit, Code.dot});
+		mappings.put("h", new Code[] {Code.dot, Code.unit, Code.dot, Code.unit, Code.dot, Code.unit, Code.dot});
+		mappings.put("i", new Code[] {Code.dot, Code.unit, Code.dot});
+		mappings.put("j", new Code[] {Code.dot, Code.unit, Code.dash, Code.unit, Code.dash, Code.unit, Code.dash});
+		mappings.put("k", new Code[] {Code.dash, Code.unit, Code.dot, Code.unit, Code.dash});
+		mappings.put("l", new Code[] {Code.dot, Code.unit, Code.dash, Code.unit, Code.dot, Code.unit, Code.dot});
+		mappings.put("m", new Code[] {Code.dash, Code.unit, Code.dash});
+		mappings.put("n", new Code[] {Code.dash, Code.unit, Code.dot});
+		mappings.put("o", new Code[] {Code.dash, Code.unit, Code.dash, Code.unit, Code.dash});
+		mappings.put("p", new Code[] {Code.dot, Code.unit, Code.dash, Code.unit, Code.dash, Code.unit, Code.dot});
+		mappings.put("q", new Code[] {Code.dash, Code.unit, Code.dash, Code.unit, Code.dot, Code.unit, Code.dash});
+		mappings.put("r", new Code[] {Code.dot, Code.unit, Code.dash, Code.unit, Code.dot});
+		mappings.put("s", new Code[] {Code.dot, Code.unit, Code.dot, Code.unit, Code.dot});
+		mappings.put("t", new Code[] {Code.dash});
+		mappings.put("u", new Code[] {Code.dot, Code.unit, Code.dot, Code.unit, Code.dash});
+		mappings.put("v", new Code[] {Code.dot, Code.unit, Code.dot, Code.unit, Code.dot, Code.unit, Code.dash});
+		mappings.put("w", new Code[] {Code.dot, Code.unit, Code.dash, Code.unit, Code.dash});
+		mappings.put("x", new Code[] {Code.dash, Code.unit, Code.dot, Code.unit, Code.dot, Code.unit, Code.dash});
+		mappings.put("y", new Code[] {Code.dash, Code.unit, Code.dot, Code.unit, Code.dash, Code.unit, Code.dash});
+		mappings.put("z", new Code[] {Code.dash, Code.unit, Code.dash, Code.unit, Code.dot, Code.unit, Code.dot});
+		
+		mappings.put(" ", new Code[] {Code.unit, Code.unit, Code.unit, Code.unit, Code.unit, Code.unit, Code.unit});
+		
+		mappings.put("1", new Code[] {Code.dot, Code.unit, Code.dash, Code.unit, Code.dash, Code.unit, Code.dash, Code.unit, Code.dash});
+		mappings.put("2", new Code[] {Code.dot, Code.unit, Code.dot, Code.unit, Code.dash, Code.unit, Code.dash, Code.unit, Code.dash});
+		mappings.put("3", new Code[] {Code.dot, Code.unit, Code.dot, Code.unit, Code.dot, Code.unit, Code.dash, Code.unit, Code.dash});
+		mappings.put("4", new Code[] {Code.dot, Code.unit, Code.dot, Code.unit, Code.dot, Code.unit, Code.dot, Code.unit, Code.dash});
+		mappings.put("5", new Code[] {Code.dot, Code.unit, Code.dot, Code.unit, Code.dot, Code.unit, Code.dot, Code.unit, Code.dot});
+		mappings.put("6", new Code[] {Code.dash, Code.unit, Code.dot, Code.unit, Code.dot, Code.unit, Code.dot, Code.unit, Code.dot});
+		mappings.put("7", new Code[] {Code.dash, Code.unit, Code.dash, Code.unit, Code.dot, Code.unit, Code.dot, Code.unit, Code.dot});
+		mappings.put("8", new Code[] {Code.dash, Code.unit, Code.dash, Code.unit, Code.dash, Code.unit, Code.dot, Code.unit, Code.dot});
+		mappings.put("9", new Code[] {Code.dash, Code.unit, Code.dash, Code.unit, Code.dash, Code.unit, Code.dash, Code.unit, Code.dot});
+		mappings.put("0", new Code[] {Code.dash, Code.unit, Code.dash, Code.unit, Code.dash, Code.unit, Code.dash, Code.unit, Code.dash});
+		
+		//TODO what about whitespace and other characters?
+	}
+	
+	//--------------------------------------------------------------------------
 	
 	
 	/**
