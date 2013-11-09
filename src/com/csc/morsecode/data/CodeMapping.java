@@ -133,7 +133,7 @@ public class CodeMapping {
 		
 		@Override
 		public boolean hasNext() {
-			return reader.getIndex() < reader.getEndIndex() - 1;
+			return reader.getIndex() < reader.getEndIndex();
 		}
 		
 		@Override

@@ -66,7 +66,6 @@ public class MessageReceiver extends BroadcastReceiver implements Input {
 		while(iter.hasNext()) {
 			encoding = iter.next();
 			
-			
 			//each sequence goes through all enabled output methods
 			for(Output output: Settings.getOutputs()) {
 				output.output(encoding);

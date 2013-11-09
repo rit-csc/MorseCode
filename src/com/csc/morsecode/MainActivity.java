@@ -8,7 +8,6 @@ import android.view.Menu;
 import com.csc.morsecode.data.CodeMapping;
 import com.csc.morsecode.handlers.ConsoleOutput;
 import com.csc.morsecode.handlers.VibratorOutput;
-import com.csc.morsecode.tests.Tests;
 
 public class MainActivity extends Activity {
 	
