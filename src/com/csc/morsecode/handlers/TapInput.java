@@ -16,6 +16,40 @@ public class TapInput implements Input {
 	// Methods from Input
 	//--------------------------------------------------------------------------
 	
+	private ArrayList<Code> inputtingCodes = new ArrayList<Code>();
+	
+	public void dot() {
+		if(inputtingCodes.size() > 0) {
+			inputtingCodes.add(Code.unit);
+		}
+		inputtingCodes.add(Code.dot);
+	}
+	
+	public void dash() {
+		if(inputtingCodes.size() > 0) {
+			inputtingCodes.add(Code.unit);
+		}
+		inputtingCodes.add(Code.dash);
+	}
+	
+	public void endChar() {
+		inputtingCodes.add(Code.EndChar);
+	}
+	
+	public void endMsg() {
+		inputtingCodes.add(Code.EndMsg);
+		
+		//send message to all input handlers
+		Code[] codes = inputtingCodes.toArray(new Code[0]);
+		for(Input in: Settings.getInputs()) {
+			in.input(codes);
+		}
+		
+		//clear for next input message
+		inputtingCodes.clear();
+	}
+	
+	
 	public void input(String message) throws UnsupportedOperationException {
 		throw new UnsupportedOperationException("No Text Input");
 	}
