@@ -1,9 +1,13 @@
 package com.csc.morsecode;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.telephony.SmsManager;
+import android.util.Log;
 import android.view.Menu;
+import android.view.View;
 
 import com.csc.morsecode.data.CodeMapping;
 import com.csc.morsecode.handlers.ConsoleOutput;
@@ -16,6 +20,8 @@ public class MainActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_main);
+		
 		
 		if ( globalContext == null ) {
 			globalContext = getApplication().getApplicationContext();
@@ -26,6 +32,8 @@ public class MainActivity extends Activity {
 		Settings.addOutput(new ConsoleOutput());
 		Settings.addOutput( new VibratorOutput() );
 		//Settings.addInput(new MessageReceiver());
+		
+		
 		
 		//run some unit tests
 		//Tests.main(null);
@@ -39,4 +47,11 @@ public class MainActivity extends Activity {
 		return true;
 	}
 	
+	public void dotOnClick(View view) {
+	
+	}
+	
+	public void dashOnClick(View view) {
+		//
+	}
 }
