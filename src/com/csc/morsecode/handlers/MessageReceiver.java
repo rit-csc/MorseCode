@@ -1,23 +1,19 @@
 package com.csc.morsecode.handlers;
 
 import java.text.StringCharacterIterator;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Iterator;
 
-import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Vibrator;
 import android.telephony.SmsMessage;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.csc.morsecode.Settings;
 import com.csc.morsecode.data.Code;
 import com.csc.morsecode.data.CodeMapping;
+import com.csc.morsecode.data.Encoding;
 
 
 public class MessageReceiver extends BroadcastReceiver implements Input {
@@ -63,10 +59,10 @@ public class MessageReceiver extends BroadcastReceiver implements Input {
 		Log.i(TAG, "Messag received:" + message);
 		
 		CodeMapping codeMapping = Settings.getCodeMapping();
-		Iterator<Code[]> iter = codeMapping.iterator(new StringCharacterIterator(message));
+		Iterator<Encoding> iter = codeMapping.iterator(new StringCharacterIterator(message));
 		
 		//output each sequence
-		Code[] encoding;
+		Encoding encoding;
 		while(iter.hasNext()) {
 			encoding = iter.next();
 			

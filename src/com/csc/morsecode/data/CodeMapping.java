@@ -16,8 +16,8 @@ public class CodeMapping {
 	/**
 	 * Keys are lowercased by the helper methods.
 	 */
-	private final HashMap<String, Code[]> textToCode = new HashMap<String, Code[]>();
-	private final HashMap<Code[], String> codeToText = new HashMap<Code[], String>();
+	private final HashMap<String, Encoding> textToCode = new HashMap<String, Encoding>();
+	private final HashMap<Encoding, String> codeToText = new HashMap<Encoding, String>();
 	
 	public CodeMapping() {
 		loadDefaults();  //TODO load these from a file
@@ -34,16 +34,16 @@ public class CodeMapping {
 		return codeToText.get(codes) != null;
 	}
 	
-	private Code[] get(String key) {
+	private Encoding get(String key) {
 		key = key.toLowerCase();
 		return textToCode.get(key);
 	}
 	
-	private String get(Code[] codes) {
+	private String get(Encoding codes) {
 		return codeToText.get(codes);
 	}
 	
-	public void putBoth(String key, Code[] codes) {
+	public void putBoth(String key, Encoding codes) {
 		key = key.toLowerCase();
 		textToCode.put(key, codes);
 		codeToText.put(codes, key);
@@ -55,49 +55,49 @@ public class CodeMapping {
 		//International Morse Code   //TODO what about the other versions?
 		//http://en.wikipedia.org/wiki/File:International_Morse_Code.svg  //TODO the space between letters is three units
 		if ( textToCode.size() > 0) {
-			return;
+			return;  //TODO we'll probably want to remove this or double check if we need it at some point
 		}
 		textToCode.clear();
 		codeToText.clear();
-		putBoth("a", new Code[] {Code.dot, Code.unit, Code.dash});
-		putBoth("b", new Code[] {Code.dash, Code.unit, Code.dot, Code.unit, Code.dot, Code.unit, Code.dot});
-		putBoth("c", new Code[] {Code.dash, Code.unit, Code.dot, Code.unit, Code.dash, Code.unit, Code.dot});
-		putBoth("d", new Code[] {Code.dash, Code.unit, Code.dot, Code.unit, Code.dot});
-		putBoth("e", new Code[] {Code.dot});
-		putBoth("f", new Code[] {Code.dot, Code.unit, Code.dot, Code.unit, Code.dash, Code.unit, Code.dot});
-		putBoth("g", new Code[] {Code.dash, Code.unit, Code.dash, Code.unit, Code.dot});
-		putBoth("h", new Code[] {Code.dot, Code.unit, Code.dot, Code.unit, Code.dot, Code.unit, Code.dot});
-		putBoth("i", new Code[] {Code.dot, Code.unit, Code.dot});
-		putBoth("j", new Code[] {Code.dot, Code.unit, Code.dash, Code.unit, Code.dash, Code.unit, Code.dash});
-		putBoth("k", new Code[] {Code.dash, Code.unit, Code.dot, Code.unit, Code.dash});
-		putBoth("l", new Code[] {Code.dot, Code.unit, Code.dash, Code.unit, Code.dot, Code.unit, Code.dot});
-		putBoth("m", new Code[] {Code.dash, Code.unit, Code.dash});
-		putBoth("n", new Code[] {Code.dash, Code.unit, Code.dot});
-		putBoth("o", new Code[] {Code.dash, Code.unit, Code.dash, Code.unit, Code.dash});
-		putBoth("p", new Code[] {Code.dot, Code.unit, Code.dash, Code.unit, Code.dash, Code.unit, Code.dot});
-		putBoth("q", new Code[] {Code.dash, Code.unit, Code.dash, Code.unit, Code.dot, Code.unit, Code.dash});
-		putBoth("r", new Code[] {Code.dot, Code.unit, Code.dash, Code.unit, Code.dot});
-		putBoth("s", new Code[] {Code.dot, Code.unit, Code.dot, Code.unit, Code.dot});
-		putBoth("t", new Code[] {Code.dash});
-		putBoth("u", new Code[] {Code.dot, Code.unit, Code.dot, Code.unit, Code.dash});
-		putBoth("v", new Code[] {Code.dot, Code.unit, Code.dot, Code.unit, Code.dot, Code.unit, Code.dash});
-		putBoth("w", new Code[] {Code.dot, Code.unit, Code.dash, Code.unit, Code.dash});
-		putBoth("x", new Code[] {Code.dash, Code.unit, Code.dot, Code.unit, Code.dot, Code.unit, Code.dash});
-		putBoth("y", new Code[] {Code.dash, Code.unit, Code.dot, Code.unit, Code.dash, Code.unit, Code.dash});
-		putBoth("z", new Code[] {Code.dash, Code.unit, Code.dash, Code.unit, Code.dot, Code.unit, Code.dot});
+		putBoth("a", new Encoding(new Code[] {Code.dot, Code.unit, Code.dash}));
+		putBoth("b", new Encoding(new Code[] {Code.dash, Code.unit, Code.dot, Code.unit, Code.dot, Code.unit, Code.dot}));
+		putBoth("c", new Encoding(new Code[] {Code.dash, Code.unit, Code.dot, Code.unit, Code.dash, Code.unit, Code.dot}));
+		putBoth("d", new Encoding(new Code[] {Code.dash, Code.unit, Code.dot, Code.unit, Code.dot}));
+		putBoth("e", new Encoding(new Code[] {Code.dot}));
+		putBoth("f", new Encoding(new Code[] {Code.dot, Code.unit, Code.dot, Code.unit, Code.dash, Code.unit, Code.dot}));
+		putBoth("g", new Encoding(new Code[] {Code.dash, Code.unit, Code.dash, Code.unit, Code.dot}));
+		putBoth("h", new Encoding(new Code[] {Code.dot, Code.unit, Code.dot, Code.unit, Code.dot, Code.unit, Code.dot}));
+		putBoth("i", new Encoding(new Code[] {Code.dot, Code.unit, Code.dot}));
+		putBoth("j", new Encoding(new Code[] {Code.dot, Code.unit, Code.dash, Code.unit, Code.dash, Code.unit, Code.dash}));
+		putBoth("k", new Encoding(new Code[] {Code.dash, Code.unit, Code.dot, Code.unit, Code.dash}));
+		putBoth("l", new Encoding(new Code[] {Code.dot, Code.unit, Code.dash, Code.unit, Code.dot, Code.unit, Code.dot}));
+		putBoth("m", new Encoding(new Code[] {Code.dash, Code.unit, Code.dash}));
+		putBoth("n", new Encoding(new Code[] {Code.dash, Code.unit, Code.dot}));
+		putBoth("o", new Encoding(new Code[] {Code.dash, Code.unit, Code.dash, Code.unit, Code.dash}));
+		putBoth("p", new Encoding(new Code[] {Code.dot, Code.unit, Code.dash, Code.unit, Code.dash, Code.unit, Code.dot}));
+		putBoth("q", new Encoding(new Code[] {Code.dash, Code.unit, Code.dash, Code.unit, Code.dot, Code.unit, Code.dash}));
+		putBoth("r", new Encoding(new Code[] {Code.dot, Code.unit, Code.dash, Code.unit, Code.dot}));
+		putBoth("s", new Encoding(new Code[] {Code.dot, Code.unit, Code.dot, Code.unit, Code.dot}));
+		putBoth("t", new Encoding(new Code[] {Code.dash}));
+		putBoth("u", new Encoding(new Code[] {Code.dot, Code.unit, Code.dot, Code.unit, Code.dash}));
+		putBoth("v", new Encoding(new Code[] {Code.dot, Code.unit, Code.dot, Code.unit, Code.dot, Code.unit, Code.dash}));
+		putBoth("w", new Encoding(new Code[] {Code.dot, Code.unit, Code.dash, Code.unit, Code.dash}));
+		putBoth("x", new Encoding(new Code[] {Code.dash, Code.unit, Code.dot, Code.unit, Code.dot, Code.unit, Code.dash}));
+		putBoth("y", new Encoding(new Code[] {Code.dash, Code.unit, Code.dot, Code.unit, Code.dash, Code.unit, Code.dash}));
+		putBoth("z", new Encoding(new Code[] {Code.dash, Code.unit, Code.dash, Code.unit, Code.dot, Code.unit, Code.dot}));
 		
-		putBoth(" ", new Code[] {Code.unit, Code.unit, Code.unit, Code.unit, Code.unit, Code.unit, Code.unit});
+		putBoth(" ", new Encoding(new Code[] {Code.unit, Code.unit, Code.unit, Code.unit, Code.unit, Code.unit, Code.unit}));
 		
-		putBoth("1", new Code[] {Code.dot, Code.unit, Code.dash, Code.unit, Code.dash, Code.unit, Code.dash, Code.unit, Code.dash});
-		putBoth("2", new Code[] {Code.dot, Code.unit, Code.dot, Code.unit, Code.dash, Code.unit, Code.dash, Code.unit, Code.dash});
-		putBoth("3", new Code[] {Code.dot, Code.unit, Code.dot, Code.unit, Code.dot, Code.unit, Code.dash, Code.unit, Code.dash});
-		putBoth("4", new Code[] {Code.dot, Code.unit, Code.dot, Code.unit, Code.dot, Code.unit, Code.dot, Code.unit, Code.dash});
-		putBoth("5", new Code[] {Code.dot, Code.unit, Code.dot, Code.unit, Code.dot, Code.unit, Code.dot, Code.unit, Code.dot});
-		putBoth("6", new Code[] {Code.dash, Code.unit, Code.dot, Code.unit, Code.dot, Code.unit, Code.dot, Code.unit, Code.dot});
-		putBoth("7", new Code[] {Code.dash, Code.unit, Code.dash, Code.unit, Code.dot, Code.unit, Code.dot, Code.unit, Code.dot});
-		putBoth("8", new Code[] {Code.dash, Code.unit, Code.dash, Code.unit, Code.dash, Code.unit, Code.dot, Code.unit, Code.dot});
-		putBoth("9", new Code[] {Code.dash, Code.unit, Code.dash, Code.unit, Code.dash, Code.unit, Code.dash, Code.unit, Code.dot});
-		putBoth("0", new Code[] {Code.dash, Code.unit, Code.dash, Code.unit, Code.dash, Code.unit, Code.dash, Code.unit, Code.dash});
+		putBoth("1", new Encoding(new Code[] {Code.dot, Code.unit, Code.dash, Code.unit, Code.dash, Code.unit, Code.dash, Code.unit, Code.dash}));
+		putBoth("2", new Encoding(new Code[] {Code.dot, Code.unit, Code.dot, Code.unit, Code.dash, Code.unit, Code.dash, Code.unit, Code.dash}));
+		putBoth("3", new Encoding(new Code[] {Code.dot, Code.unit, Code.dot, Code.unit, Code.dot, Code.unit, Code.dash, Code.unit, Code.dash}));
+		putBoth("4", new Encoding(new Code[] {Code.dot, Code.unit, Code.dot, Code.unit, Code.dot, Code.unit, Code.dot, Code.unit, Code.dash}));
+		putBoth("5", new Encoding(new Code[] {Code.dot, Code.unit, Code.dot, Code.unit, Code.dot, Code.unit, Code.dot, Code.unit, Code.dot}));
+		putBoth("6", new Encoding(new Code[] {Code.dash, Code.unit, Code.dot, Code.unit, Code.dot, Code.unit, Code.dot, Code.unit, Code.dot}));
+		putBoth("7", new Encoding(new Code[] {Code.dash, Code.unit, Code.dash, Code.unit, Code.dot, Code.unit, Code.dot, Code.unit, Code.dot}));
+		putBoth("8", new Encoding(new Code[] {Code.dash, Code.unit, Code.dash, Code.unit, Code.dash, Code.unit, Code.dot, Code.unit, Code.dot}));
+		putBoth("9", new Encoding(new Code[] {Code.dash, Code.unit, Code.dash, Code.unit, Code.dash, Code.unit, Code.dash, Code.unit, Code.dot}));
+		putBoth("0", new Encoding(new Code[] {Code.dash, Code.unit, Code.dash, Code.unit, Code.dash, Code.unit, Code.dash, Code.unit, Code.dash}));
 		//TODO what about whitespace and other characters?
 	}
 	
@@ -110,7 +110,7 @@ public class CodeMapping {
 	 * @return
 	 * @throws IllegalArgumentException If the giver reader is null
 	 */
-	public Iterator<Code[]> iterator(StringCharacterIterator reader) throws IllegalArgumentException {
+	public Iterator<Encoding> iterator(StringCharacterIterator reader) throws IllegalArgumentException {
 		if(reader == null) {
 			throw new IllegalArgumentException("The character iterator cannot be null");
 		}
@@ -123,7 +123,7 @@ public class CodeMapping {
 	 * @author dpk3062
 	 * Moves over the given reader returning Code textToCode for the largest possible character sequence.
 	 */
-	private class TextToCodeIterator implements Iterator<Code[]> {
+	private class TextToCodeIterator implements Iterator<Encoding> {
 		
 		private final StringCharacterIterator reader;
 		
@@ -137,7 +137,7 @@ public class CodeMapping {
 		}
 		
 		@Override
-		public Code[] next() {
+		public Encoding next() {
 			String key = "";
 			Code[] code = new Code[0];
 			
@@ -152,7 +152,7 @@ public class CodeMapping {
 			}
 			Log.w("code-mapping", "Left over characters without a code mapping: " + key);
 			
-			return code;
+			return new Encoding(code);
 		}
 		
 		@Override

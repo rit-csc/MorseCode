@@ -1,11 +1,12 @@
 package com.csc.morsecode.handlers;
 
-import com.csc.morsecode.data.Code;
+import com.csc.morsecode.data.Encoding;
+
 
 
 public interface Output {
 	
-	public void output(Code[] encoding);
+	public void output(Encoding encoding);
 	
 	public void output(String text);
 	
