@@ -18,7 +18,7 @@ public class CodeMapping {
 	 * Keys are lowercased by the helper methods.
 	 */
 	private final HashMap<String, Encoding> textToCode = new HashMap<String, Encoding>();
-	private final HashMap<Encoding, String> codeToText = new HashMap<Encoding, String>();
+	private final HashMap<String, String> codeToText = new HashMap<String, String>();
 	
 	public CodeMapping() {
 		loadDefaults();  //TODO load these from a file
@@ -32,7 +32,7 @@ public class CodeMapping {
 	}
 	
 	private boolean contains(Encoding codes) {
-		return codeToText.get(codes) != null;
+		return codeToText.get(codes.toString()) != null;
 	}
 	
 	private Encoding get(String key) {
@@ -42,13 +42,14 @@ public class CodeMapping {
 	
 	//TODO get the iterator working so we can turn this private again
 	public String get(Encoding codes) {
-		return codeToText.get(codes);
+		Log.e("CM", "Checking: " + codes + ", " + codeToText.get(codes.toString()));
+		return codeToText.get(codes.toString());
 	}
 	
 	public void putBoth(String key, Encoding codes) {
 		key = key.toLowerCase();
 		textToCode.put(key, codes);
-		codeToText.put(codes, key);
+		codeToText.put(codes.toString(), key);
 	}
 	
 	//--------------------------------------------------------------------------

@@ -2,6 +2,9 @@ package com.csc.morsecode.handlers;
 
 import java.util.ArrayList;
 
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.telephony.SmsManager;
 import android.util.Log;
 
 import com.csc.morsecode.Settings;
@@ -10,45 +13,12 @@ import com.csc.morsecode.data.CodeMapping;
 import com.csc.morsecode.data.Encoding;
 
 
-public class TapInput implements Input {
+public class TapInput extends Activity implements Input {
+	
 	
 	//--------------------------------------------------------------------------
 	// Methods from Input
 	//--------------------------------------------------------------------------
-	
-	private ArrayList<Code> inputtingCodes = new ArrayList<Code>();
-	
-	public void dot() {
-		if(inputtingCodes.size() > 0) {
-			inputtingCodes.add(Code.unit);
-		}
-		inputtingCodes.add(Code.dot);
-	}
-	
-	public void dash() {
-		if(inputtingCodes.size() > 0) {
-			inputtingCodes.add(Code.unit);
-		}
-		inputtingCodes.add(Code.dash);
-	}
-	
-	public void endChar() {
-		inputtingCodes.add(Code.EndChar);
-	}
-	
-	public void endMsg() {
-		inputtingCodes.add(Code.EndMsg);
-		
-		//send message to all input handlers
-		Code[] codes = inputtingCodes.toArray(new Code[0]);
-		for(Input in: Settings.getInputs()) {
-			in.input(codes);
-		}
-		
-		//clear for next input message
-		inputtingCodes.clear();
-	}
-	
 	
 	public void input(String message) throws UnsupportedOperationException {
 		throw new UnsupportedOperationException("No Text Input");
@@ -77,11 +47,31 @@ public class TapInput implements Input {
 				
 				codes.clear();
 			} else if(c == Code.EndMsg) {
-				Log.d("INPUT", "Decoded message: " + message);
-				//TODO send message
-				//TODO send message
-				//TODO send message
+				Encoding e = new Encoding(codes.toArray(new Code[0]));
+				String ch = codeMapping.get(e);
+				if(ch != null) {
+					message += ch;
+				} else {
+					Log.e("INPUT", "Losing codes: " + e);
+				}
+				
+				codes.clear();
+				Log.d("INPUT", "Decoded message: [" + message + "]");
+				
+				sendSMS(Settings.getOutgoingPhoneNum(), message);
+				
 				return;
+			} else if(c == Code.EndWord) {
+				Encoding e = new Encoding(codes.toArray(new Code[0]));
+				String ch = codeMapping.get(e);
+				if(ch != null) {
+					message += ch;
+				} else {
+					Log.e("INPUT", "Losing codes: " + e);
+				}
+				
+				codes.clear();				
+				message += " ";
 			} else {
 				Log.d("INPUT", "Decoded code: " + c.text);
 				codes.add(c);
@@ -89,4 +79,22 @@ public class TapInput implements Input {
 		}
 	}
 	
+	//--------------------------------------------------------------------------
+	
+	public void sendSMS(String phoneNumber, String message) {
+		try {
+			SmsManager.getDefault().sendTextMessage(phoneNumber, null, message, null, null);
+		}
+		catch (Exception e) {
+			try {
+				AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+				AlertDialog dialog = alertDialogBuilder.create();
+				
+				dialog.setMessage(e.getMessage());
+				dialog.show();
+			} catch(Exception e1) {
+				Log.e("SENDING_SMS", "Failed while failing", e1);
+			}
+		}
+	}
 }

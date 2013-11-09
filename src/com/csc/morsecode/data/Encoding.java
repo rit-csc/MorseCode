@@ -16,19 +16,16 @@ public class Encoding {
 	public boolean equals(Encoding e) {
 		if(e == null) {
 			return false;
-		} else if(e.get.length != get.length) {
-			return false;
 		}
 		
-		//match each and every encoding in the same order
-		for(int i = 0; i < get.length; ++i) {
-			if(get[i] != e.get[i]) {
-				return false;
-			}
-		}
-		
-		return true;
+		return this.toString().equals(e.toString());
 	}
+	
+	@Override
+	public int hashCode() {
+		return this.toString().hashCode();
+	}
+	
 	
 	@Override
 	public String toString() {

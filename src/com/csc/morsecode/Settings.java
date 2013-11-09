@@ -17,6 +17,10 @@ public class Settings {
 	private static HashSet<Input> inputs = new HashSet<Input>();
 	private static HashSet<Output> outputs = new HashSet<Output>();
 	
+	public static String getOutgoingPhoneNum() {
+		return "585-739-1852";
+	}
+	
 	//--------------------------------------------------------------------------
 	
 	public static CodeMapping getCodeMapping() {
