@@ -59,7 +59,7 @@ public class MessageReceiver extends BroadcastReceiver implements Input {
 		Log.i(TAG, "Messag received:" + message);
 		
 		CodeMapping codeMapping = Settings.getCodeMapping();
-		Iterator<Encoding> iter = codeMapping.iterator(new StringCharacterIterator(message));
+		Iterator<Encoding> iter = codeMapping.sToEIterator(new StringCharacterIterator(message));
 		
 		//output each sequence
 		Encoding encoding;

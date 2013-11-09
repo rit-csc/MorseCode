@@ -1,6 +1,7 @@
 package com.csc.morsecode.data;
 
 import java.text.StringCharacterIterator;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 
@@ -30,7 +31,7 @@ public class CodeMapping {
 		return textToCode.get(key) != null;
 	}
 	
-	private boolean contains(Code[] codes) {
+	private boolean contains(Encoding codes) {
 		return codeToText.get(codes) != null;
 	}
 	
@@ -101,8 +102,7 @@ public class CodeMapping {
 		//TODO what about whitespace and other characters?
 	}
 	
-	//--------------------------------------------------------------------------
-	
+	//--------------------------------------------------------------------------	
 	
 	/**
 	 * Creates a new iterator that returns Code arrays indicating the next largest matching sequence (a Code array could match a string longer than one character).
@@ -110,7 +110,7 @@ public class CodeMapping {
 	 * @return
 	 * @throws IllegalArgumentException If the giver reader is null
 	 */
-	public Iterator<Encoding> iterator(StringCharacterIterator reader) throws IllegalArgumentException {
+	public Iterator<Encoding> sToEIterator(StringCharacterIterator reader) throws IllegalArgumentException {
 		if(reader == null) {
 			throw new IllegalArgumentException("The character iterator cannot be null");
 		}
@@ -156,10 +156,61 @@ public class CodeMapping {
 		}
 		
 		@Override
-		public void remove() {
+		public void remove() throws UnsupportedOperationException {
 			throw new UnsupportedOperationException("Remove not supported");
 		}
+	}
+	
+	//--------------------------------------------------------------------------
+	
+	public Iterator<String> eToSIterator(Encoding encoding) throws IllegalArgumentException {
+		if(encoding == null) {
+			throw new IllegalArgumentException("The encoding iterator cannot be null");
+		}
 		
+		return new CodeToTextIterator(encoding);
+	}
+	
+	//TODO this needs testing
+	/**
+	 * @author dpk3062
+	 *
+	 */
+	private class CodeToTextIterator implements Iterator<String> {
+		
+		private final Encoding encoding;
+		private int index = 0;
+		
+		public CodeToTextIterator(Encoding encoding) {
+			this.encoding = encoding;
+		}
+		
+		public boolean hasNext() {
+			return index < encoding.get.length;
+		}
+		
+		public String next() {
+			String value = "";
+			
+			//TODO this loop only matches the first encoding.  Change it to keep looping through until it matches the longest matchable encoding.
+			ArrayList<Code> codes = new ArrayList<Code>();
+			Encoding e;
+			while(hasNext()) {
+				codes.add(encoding.get[index]);
+				++index;
+				
+				e = new Encoding(codes.toArray(new Code[0]));
+				if(contains(e)) {
+					return get(e);
+				}
+			}
+			
+			return value;
+		}
+		
+		public void remove() throws UnsupportedOperationException {
+			throw new UnsupportedOperationException("Remove not supported");
+		}
 	}
 	
 }
